@@ -30,7 +30,7 @@ Este proyecto es una aplicación full stack que utiliza Flask para el backend y 
    - En **Windows**:
 
      ```bash
-     venv\Scripts\activate
+     source venv\Scripts\activate
      ```
 
    - En **macOS/Linux**:
