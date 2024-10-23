@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import 'tailwindcss/tailwind.css';
-import { Button } from '@mantine/core';
-import { HeaderSimple } from './components/header/HeaderSimple';
+import Card from './components/Card/Card';
+import Button from './components/Button/Button';
 
 function App() {
   const [listings, setListings] = useState([]);
@@ -29,54 +29,20 @@ function App() {
 
   return (
     <div className="App p-4">
-      <HeaderSimple />
-      <h1 className="text-2xl font-bold mb-4">Mantine and Tailwind CSS</h1>
-
-      <Button className="bg-black-500 text-white px-4 py-2 rounded">
-        Mantine Button with Tailwind CSS
-      </Button>
-      <div className="flex space-x-4 mb-4">
-        <button 
-          onClick={() => handleScrape('zonaprop')} 
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-        >
-          Scrape ZonaProp
-        </button>
-        <button 
-          onClick={() => handleScrape('remax')} 
-          className="bg-red-500 text-white px-4 py-2 rounded"
-        >
-          Scrape Remax
-        </button>
-        <button 
-          onClick={() => handleScrape('mercadolibre')} 
-          className="bg-yellow-500 text-white px-4 py-2 rounded"
-        >
-          Scrape MercadoLibre
-        </button>
-        <button 
-          onClick={() => handleScrape('argenprop')} 
-          className="bg-green-900 text-white px-4 py-2 rounded"
-        >
-          Scrape ArgenProp
-        </button>
-        <button 
-          onClick={handleScrapeAll} 
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Scrape All
-        </button>
+      <div className='h-20 flex justify-center'>
+        <h1 className="text-4xl font-bold mb-4">Apartment search scraper</h1>
+      </div>
+      <div className="flex justify-center space-x-4 mb-4">
+        <Button styles={"bg-blue-500 text-white px-4 py-2 rounded"} onClick={() => handleScrape('zonaprop')} >ZonaProp</Button>
+        <Button styles={"bg-red-500 text-white px-4 py-2 rounded"} onClick={() => handleScrape('remax')} >Remax</Button>
+        <Button styles={"bg-yellow-500 text-white px-4 py-2 rounded"} onClick={() => handleScrape('mercadolibre')} >Mercado Libre</Button>
+        <Button styles={"bg-green-900 text-white px-4 py-2 rounded"} onClick={() => handleScrape('argenprop')} >ArgenProp</Button>
+        <Button styles={"bg-green-500 text-white px-4 py-2 rounded"} onClick={handleScrapeAll} >Scrap All</Button>
       </div>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
-        {listings.length > 0 ? (
+        {listings.length ? (
           listings.map((listing, index) => (
-            <div key={index} className="border p-2 mb-2">
-              <p><strong>Address: how</strong>{listing.address}</p>
-              <p><strong>URL:</strong> <a href={listing.url} target="_blank" rel="noopener noreferrer">{listing.url}</a></p>
-              <p><strong>Price:</strong> {listing.price}</p>
-              <p><strong>Expenses:</strong> {listing.expenses}</p>
-              <p><strong>Features:</strong> {listing.features.join(', ')}</p>
-            </div>
+           <Card listing={listing} index={index} />
           ))
         ) : (
           <p>No listings to show.</p>
