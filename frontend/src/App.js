@@ -32,7 +32,7 @@ function App() {
       <HeaderSimple />
       <h1 className="text-2xl font-bold mb-4">Mantine and Tailwind CSS</h1>
 
-      <Button className="bg-blue-500 text-white px-4 py-2 rounded">
+      <Button className="bg-black-500 text-white px-4 py-2 rounded">
         Mantine Button with Tailwind CSS
       </Button>
       <div className="flex space-x-4 mb-4">
