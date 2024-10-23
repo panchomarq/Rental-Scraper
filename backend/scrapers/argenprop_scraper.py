@@ -13,7 +13,8 @@ class ArgenpropScraper(BaseScraper):
             'DNT': '1',
         }
         self.urls = [
-            'https://www.argenprop.com/departamentos/alquiler/nunez/2-dormitorios?hasta-20-anos&orden-menorprecio'
+            # change URL with the one you need, filters already applied
+            'https://www.argenprop.com/departamentos/alquiler/almagro-o-belgrano-o-caballito-o-palermo-o-parque-centenario/2-dormitorios/pesos-500000-600000?hasta-150000-expensas'
         ]
 
     def scrape(self):
@@ -39,13 +40,25 @@ class ArgenpropScraper(BaseScraper):
 
     def extract_data(self, soup):
         listings = []
+        # spup() page parsing
+        #task: add images, add address 
         for div in soup.find_all('div', class_='listing__item'):
+            address =  div.find('p', class_='card__title--primary')
+            if address:
+                address = address.text.strip()
+            else:
+                address = ""
+
+            location = div.find('p', class_='card__address')
+            if location:
+                location = location.text.strip()
+
             url = div.find('a')
             if url:
                 full_url = f"https://www.argenprop.com{url.get('href')}"
             else:
                 full_url = None
-            
+
             price_symbol = div.find('span', class_='card__currency')
             if price_symbol:
                 price_symbol = price_symbol.text.strip()
@@ -71,6 +84,8 @@ class ArgenpropScraper(BaseScraper):
                 features = []
 
             listings.append({
+                'address': address,
+                'location': location,
                 'url': full_url,
                 'price': f"{price_symbol}{price}",
                 'expenses': expenses,
